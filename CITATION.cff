@@ -6,7 +6,7 @@ authors:
     given-names: "Chris"
     affiliation: "Rozier Quantum LLC"
 version: 0.1.0
-date-released: 2026-11-26
+date-released: 2026-11-25
 license: Apache-2.0
 repository-code: "https://github.com/catrozier08-gif/rozier-piecepack"
-# doi: add the Zenodo DOI here after the first GitHub release is archived
+doi: 10.5281/zenodo.24543880
