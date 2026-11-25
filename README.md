@@ -1,5 +1,7 @@
 # rozier-piecepack
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24543880.svg)](https://doi.org/10.5281/zenodo.24543880)
+
 A fallback layout search for Qiskit. It finds zero-swap layouts that the stock `VF2Layout` pass misses when a circuit's two-qubit interaction graph is split into several medium-sized pieces and nearly every qubit on the chip is in use.
 
 Background and data: [Qiskit issue #17609](https://github.com/Qiskit/qiskit/issues/17609).
@@ -82,6 +84,6 @@ Run with `examples/boundary_benchmark.py` (this package, v0.1.0). Setup: Qiskit 
 
 ## License and citation
 
-Apache-2.0. If this helps your work, please cite it using `CITATION.cff` (Zenodo DOI to follow).
+Apache-2.0. If this helps your work, please cite it: [doi:10.5281/zenodo.24543880](https://doi.org/10.5281/zenodo.24543880) (details in `CITATION.cff`).
 
 Built by Chris Rozier, Rozier Quantum LLC — [rozierquantum.com](https://rozierquantum.com).
