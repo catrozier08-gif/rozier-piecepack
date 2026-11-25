@@ -1,0 +1,13 @@
+rustworkx>=0.15
+
+[examples]
+qiskit>=2.0
+qiskit-ibm-runtime
+networkx
+
+[qiskit]
+qiskit>=2.0
+
+[test]
+pytest
+qiskit>=2.0

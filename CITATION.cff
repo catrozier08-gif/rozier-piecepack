@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "rozier-piecepack: a zero-swap layout fallback for interaction graphs split into pieces"
+authors:
+  - family-names: "Rozier"
+    given-names: "Chris"
+    affiliation: "Rozier Quantum LLC"
+version: 0.1.0
+date-released: 2026-11-26
+license: Apache-2.0
+repository-code: "https://github.com/catrozier08-gif/rozier-piecepack"
+# doi: add the Zenodo DOI here after the first GitHub release is archived
