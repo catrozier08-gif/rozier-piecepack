@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: rozier-piecepack
-Version: 0.1.0
+Version: 0.3.0.dev0
 Summary: Zero-swap layout fallback for Qiskit when the circuit's interaction graph is split into pieces
 Author: Chris Rozier
 License-Expression: Apache-2.0
@@ -26,25 +26,35 @@ Requires-Dist: qiskit>=2.0; extra == "test"
 
 # rozier-piecepack
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24543880.svg)](https://doi.org/10.5281/zenodo.24543880)
+
 A fallback layout search for Qiskit. It finds zero-swap layouts that the stock `VF2Layout` pass misses when a circuit's two-qubit interaction graph is split into several medium-sized pieces and nearly every qubit on the chip is in use.
 
 Background and data: [Qiskit issue #17609](https://github.com/Qiskit/qiskit/issues/17609).
 
 ## The problem in one paragraph
 
-On IBM's 156-qubit heavy-hex (Heron r2) graph, `transpile(optimization_level=3)` sometimes reports `VF2Layout` `NO_SOLUTION_FOUND` for circuits that fit the chip with zero swaps. It then falls back to SabreLayout. The miss costs 17-36 s of VF2 search. With the chip's own qubit numbering, Sabre usually still lands on a zero-swap layout, so only time is lost. With any other numbering, the result can have ~2.4x the two-qubit gates. It shows up for ordinary circuits. One example is Ising Trotter steps on a fixed subset of ~70-85% of the couplers, which is near heavy-hex's bond-percolation point: almost every qubit is active, but the pattern breaks into several medium pieces.
+On IBM's 156-qubit heavy-hex (Heron r2) graph, `transpile(optimization_level=3)` sometimes reports `VF2Layout` `NO_SOLUTION_FOUND` for circuits that fit the chip with zero swaps. It then falls back to SabreLayout. The miss costs 17-36 s of VF2 search. With the chip's own qubit numbering, Sabre usually still lands on a zero-swap layout, so only time is lost. With any other numbering, the result can have ~2.4x the two-qubit gates. On chip-numbered misses a second pass, `VF2PostLayout`, then repeats the same hard search, roughly doubling the compile time. It shows up for ordinary circuits. One example is Ising Trotter steps on a fixed subset of ~70-85% of the couplers, which is near heavy-hex's bond-percolation point: almost every qubit is active, but the pattern breaks into several medium pieces.
 
-## How piece-pack works
+## How it works
 
-VF2 grows a match one qubit at a time and prunes by checking each new qubit against qubits already placed. A piece that isn't connected to anything placed yet has nothing to be checked against. A bad spot for it is often only found when the chip is nearly full, and the search backtracks a very long way.
+When stock `VF2Layout` reports `NO_SOLUTION_FOUND`, `transpile_with_fallback` stops the stock run at that point (early exit). That skips the Sabre fallback, and on chip-numbered circuits it also skips a `VF2PostLayout` search that can take as long as the miss itself. It then searches the exact interaction graph that `VF2Layout` saw, in stages:
 
-Piece-pack places whole pieces instead:
+0. **Quick piece-pack try (1 s).** Most piece-pack wins take well under a second.
+1. **Round-trip `VF2Layout` retry (2 s).** A fresh DAG gives Qiskit's canonical edge order, and Qiskit scores the layout by error.
+2. **Whole-chip VF2, VF2++ order (2 s).** Keeps the lowest-error of up to 50 layouts.
+3. **Whole-chip VF2, node-index order (2 s).** Same scoring.
+4. **Piece-pack with all the time left.**
 
-1. Pieces go biggest first, each one placed with rustworkx VF2 on the chip's still-free qubits.
-2. After every placement it checks a cheap necessary condition: can the leftover free regions still hold the leftover pieces? For each size *t*, the pieces of size ≥ *t* must fit into the sum over regions of ⌊region / *t*⌋ slots. If the condition fails, the placement is rejected at once. This is forward checking in the constraint-satisfaction sense.
-3. Placements covering exactly the same qubits as one already tried are skipped.
+Stages 1-3 cover the case where piece-pack is weakest: many small components.
 
-`transpile_with_fallback` runs stock Qiskit first. Piece-pack runs only if stock `VF2Layout` returns `NO_SOLUTION_FOUND`, and it searches the exact interaction graph that `VF2Layout` saw. When VF2 succeeds, nothing extra runs. When piece-pack finds a layout, the circuit is compiled again with it, and the version with fewer two-qubit gates is returned.
+**Piece-pack** places whole pieces instead of single qubits. Plain VF2 grows a match one qubit at a time and prunes by checking each new qubit against qubits already placed. A piece that isn't connected to anything placed yet has nothing to be checked against, so a bad spot is often found only when the chip is nearly full. Piece-pack instead works like this:
+
+- Pieces are placed biggest first, each with rustworkx VF2 on the chip's still-free qubits.
+- After every placement it checks a cheap necessary condition: can the leftover free regions still hold the leftover pieces? For each size *t*, the pieces of size ≥ *t* must fit into the sum over regions of ⌊region / *t*⌋ slots. This is forward checking in the constraint-satisfaction sense.
+- Placements covering exactly the same qubits as one already tried are skipped.
+
+If a zero-swap layout is found, the circuit is compiled with it as `initial_layout`. If nothing is found, the circuit is compiled with `layout_method="sabre"`, the same method stock falls back to. So the result is never worse than stock, and `VF2Layout` doesn't run twice. When `VF2Layout` succeeds, nothing extra runs.
 
 ## Install
 
@@ -60,32 +70,52 @@ from qiskit_ibm_runtime.fake_provider import FakeKingston
 from rozier_piecepack import transpile_with_fallback
 
 target = FakeKingston().target
-out, info = transpile_with_fallback(circuit, target, optimization_level=3, seed_transpiler=1, time_limit=10)
-print(info["vf2_stop"], info["piece_pack"], info["used"], info["stock_2q"], info["piece_pack_2q"])
+out, info = transpile_with_fallback(circuit, target, optimization_level=3, seed_transpiler=1)
+print(info["vf2_stop"], info["search"], info["stage"], info["used"], info["final_2q"])
 ```
 
-In a custom pass manager, `PiecePackLayout(target=..., time_limit=...)` is an analysis pass that sets `property_set["layout"]` when it finds a zero-swap layout. By default it does nothing if a layout is already set. Its outcome is recorded in `property_set["PiecePackLayout_stop_reason"]`.
+`early_exit=False` lets the stock run finish and keeps whichever result has fewer two-qubit gates.
 
-The search alone needs only rustworkx:
+In a custom pass manager, `PiecePackLayout(target=..., time_limit=...)` is an analysis pass that runs the same staged search and sets `property_set["layout"]` when it finds a zero-swap layout. By default it does nothing if a layout is already set. Its outcome is recorded in `property_set["PiecePackLayout_stop_reason"]`.
+
+The searches alone need only rustworkx:
 
 ```python
 from rozier_piecepack import piece_pack, check_mapping
 mapping, status, stats = piece_pack(chip_graph, pattern_graph, time_limit=10)   # status: FOUND / TIMEOUT / NONE
+# also: whole_chip_vf2(chip_graph, pattern_graph, time_limit=2, id_order=False, score=...)
 ```
 
 ## Results
 
-<!-- Replace with the output of examples/boundary_benchmark.py run on this package before release. -->
-To be filled in from `examples/boundary_benchmark.py`, run with this package.
+Run with `examples/boundary_benchmark.py` (v0.2.1). Setup: Qiskit 2.6.2, rustworkx 0.17.1, FakeKingston, 30 s limit. Stock and `transpile_with_fallback` are compiled side by side in the same session. The 16 circuits are the ones where stock level-3 `VF2Layout` returned `NO_SOLUTION_FOUND`, out of 48 Ising Trotter circuits on 65-90% of the couplers.
+
+| | stock level 3 | with fallback | zero-swap |
+|---|---|---|---|
+| zero-swap layout found | 0/16 | **14/16** | 16/16 by construction |
+| 2q gates, all 16 | 14780 | **8738** | 8738 |
+| 2q gates, 8 with shuffled numbering | 10394 | **4352** | 4352 |
+| compile time, chip numbering (median) | 63.4 s | **41.5 s** | |
+| compile time, shuffled numbering (median) | 32.1 s | **30.8 s** | |
+| total compile time, all 16 | 728 s | **588 s** | |
+
+- **Every miss that cost gates was fixed**, and no circuit ended with more gates than stock. 0 invalid layouts.
+- **Search time: median 0.76 s, max 23.3 s.** Found by: piece-pack 10, whole-chip VF2 (id order) 2, whole-chip VF2++ 1, round-trip `VF2Layout` 1.
+- **Chip-numbered circuits were never slower than stock**, thanks to the early exit.
+- **Three shuffled-numbering circuits took longer than stock** (by 7-24 s). These are the hard searches, and each one also cut the two-qubit gates by more than half (for example 1336 → 554).
+- **The 2 not solved are chip-numbered** (pieces 49 28 16 11 … and 51 25 20 17 …). Stock's Sabre fallback already reaches their zero-swap gate count, so they cost time but not gates. Here they finish in about stock's time (55.9 vs 57.8 s, 66.2 vs 74.6 s).
+
+v0.1.0, piece-pack only with no early exit: 13/16 found, median search 0.45 s, and the compile waited for the full stock run.
 
 ## Limits (read before relying on it)
 
 - **Tested on heavy-hex only:** FakeKingston (Heron r2, 156 q) and synthetic `CouplingMap.from_heavy_hex` graphs. Other topologies are untested.
-- **First valid layout, not error-scored.** Stock `VF2Layout` scores candidate layouts by error rates; piece-pack returns the first zero-swap layout it finds. Noise-aware choice is planned.
+- **Error-aware only in part.** The whole-chip stages keep the lowest-error of up to 50 layouts, and the round-trip stage uses Qiskit's own scoring. Piece-pack returns the first valid layout it finds.
 - **The time limit is approximate.** Each VF2 call gets a budget sized to the time left, assuming about 1e6 VF2 states per second.
 - **`NONE` is not a proof** that no layout exists, only that none was found within the budget.
-- **Some cases are still out of reach.** In testing, two circuits stayed unsolved at a 30 s limit (pieces 49 28 16 11 … and 51 25 20 17 …). Two large pieces of similar size remain the hardest pattern.
-- **On a miss, it costs one extra compile** on top of the stock run, plus the search time.
+- **Some cases are still out of reach.** Two circuits stayed unsolved at 30 s. Two large pieces of similar size remain the hardest pattern.
+- **Default time limit is 30 s.** A search that succeeds returns early, so the limit only matters on the hard cases, and stock `VF2Layout` has usually already spent 20-40 s on those.
+- **Early exit stops the stock run from inside a pass-manager callback.** If a future Qiskit version changes how callbacks work, use `early_exit=False`; the tests include a check for this.
 
 ## Related work
 
@@ -96,6 +126,6 @@ To be filled in from `examples/boundary_benchmark.py`, run with this package.
 
 ## License and citation
 
-Apache-2.0. If this helps your work, please cite it using `CITATION.cff` (Zenodo DOI to follow).
+Apache-2.0. If this helps your work, please cite it: [doi:10.5281/zenodo.24543880](https://doi.org/10.5281/zenodo.24543880) (details in `CITATION.cff`).
 
 Built by Chris Rozier, Rozier Quantum LLC — [rozierquantum.com](https://rozierquantum.com).

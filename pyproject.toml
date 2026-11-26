@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rozier-piecepack"
-version = "0.1.0"
+version = "0.3.0"
 description = "Zero-swap layout fallback for Qiskit when the circuit's interaction graph is split into pieces"
 readme = "README.md"
 license = "Apache-2.0"

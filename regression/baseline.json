@@ -1,0 +1,408 @@
+{
+ "A": {
+  "boundary|0.65|chip order|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.65|chip order|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.65|chip order|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.65|scrambled|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.65|scrambled|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.65|scrambled|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.75|chip order|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.75|chip order|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.75|chip order|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.75|scrambled|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.75|scrambled|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.75|scrambled|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.78|chip order|1": {
+   "stage": null,
+   "status": "BUDGET"
+  },
+  "boundary|0.78|chip order|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.78|chip order|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.78|scrambled|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.78|scrambled|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.78|scrambled|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.7|chip order|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.7|chip order|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.7|chip order|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.7|scrambled|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.7|scrambled|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.7|scrambled|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.82|chip order|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.82|chip order|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.82|chip order|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.82|scrambled|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.82|scrambled|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.82|scrambled|3": {
+   "stage": "whole-chip id order",
+   "status": "FOUND"
+  },
+  "boundary|0.85|chip order|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.85|chip order|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.85|chip order|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.85|scrambled|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.85|scrambled|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.85|scrambled|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.8|chip order|1": {
+   "stage": null,
+   "status": "BUDGET"
+  },
+  "boundary|0.8|chip order|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.8|chip order|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.8|scrambled|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.8|scrambled|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.8|scrambled|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.9|chip order|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.9|chip order|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.9|chip order|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.9|scrambled|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.9|scrambled|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "boundary|0.9|scrambled|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex291|262|0.6|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex291|262|0.6|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex291|262|0.8|1": {
+   "stage": null,
+   "status": "NONE"
+  },
+  "planted|heavyhex291|262|0.8|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex291|280|0.6|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex291|280|0.6|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex291|280|0.8|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex291|280|0.8|2": {
+   "stage": null,
+   "status": "BUDGET"
+  },
+  "planted|heavyhex291|291|0.6|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex291|291|0.6|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex291|291|0.8|1": {
+   "stage": null,
+   "status": "TIMEOUT"
+  },
+  "planted|heavyhex291|291|0.8|2": {
+   "stage": null,
+   "status": "BUDGET"
+  },
+  "planted|heavyhex547|520|0.7|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex547|520|0.85|1": {
+   "stage": null,
+   "status": "NONE"
+  },
+  "planted|heavyhex547|547|0.7|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|heavyhex547|547|0.85|1": {
+   "stage": null,
+   "status": "NONE"
+  },
+  "planted|kingston|140|0.5|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|140|0.5|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|140|0.5|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|140|0.7|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|140|0.7|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|140|0.7|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|140|0.85|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|140|0.85|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|140|0.85|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|148|0.5|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|148|0.5|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|148|0.5|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|148|0.7|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|148|0.7|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|148|0.7|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|148|0.85|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|148|0.85|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|148|0.85|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|152|0.5|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|152|0.5|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|152|0.5|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|152|0.7|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|152|0.7|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|152|0.7|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|152|0.85|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|152|0.85|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|152|0.85|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|156|0.5|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|156|0.5|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|156|0.5|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|156|0.7|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|156|0.7|2": {
+   "stage": "whole-chip VF2++",
+   "status": "FOUND"
+  },
+  "planted|kingston|156|0.7|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|156|0.85|1": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|156|0.85|2": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  },
+  "planted|kingston|156|0.85|3": {
+   "stage": "piece-pack",
+   "status": "FOUND"
+  }
+ },
+ "qiskit": "2.6.2",
+ "recorded": "20261126_104637",
+ "rustworkx": "0.17.1",
+ "version": "0.3.0.dev0"
+}
