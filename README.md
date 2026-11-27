@@ -1,6 +1,6 @@
 # rozier-piecepack
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24543880.svg)](https://doi.org/10.5281/zenodo.24543880)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24543879.svg)](https://doi.org/10.5281/zenodo.24543879)
 
 A fallback layout search for Qiskit. It finds zero-swap layouts that the stock `VF2Layout` pass misses when a circuit's two-qubit interaction graph is split into several pieces and nearly every qubit on the chip is in use.
 
@@ -191,6 +191,6 @@ Every release passes the regression suite first. A case that was solved and no l
 
 ## License and citation
 
-Apache-2.0. If this helps your work, please cite it: [doi:10.5281/zenodo.24543880](https://doi.org/10.5281/zenodo.24543880) (details in `CITATION.cff`).
+Apache-2.0. If this helps your work, please cite it: [doi:10.5281/zenodo.24543879](https://doi.org/10.5281/zenodo.24543879). That DOI covers all versions and always points to the latest; each version also has its own DOI on Zenodo (v0.3.1: [10.5281/zenodo.24586994](https://doi.org/10.5281/zenodo.24586994)). Details in `CITATION.cff`.
 
 Built by Chris Rozier, Rozier Quantum LLC — [rozierquantum.com](https://rozierquantum.com).
