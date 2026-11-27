@@ -5,7 +5,7 @@ Qiskit integration (needs qiskit): transpile_with_fallback, PiecePackLayout
 """
 from .core import BUDGET, FOUND, NONE, TIMEOUT, check_mapping, fits, piece_pack, whole_chip_vf2
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 __all__ = ["piece_pack", "whole_chip_vf2", "fits", "check_mapping", "FOUND", "NONE", "TIMEOUT", "BUDGET",
            "transpile_with_fallback", "PiecePackLayout", "search_layout", "__version__"]
 
